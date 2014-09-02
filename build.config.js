@@ -94,8 +94,8 @@ module.exports = {
       'vendor/bootstrap-sortable/Scripts/bootstrap-sortable.js',
       'vendor/angular-xeditable/dist/js/xeditable.min.js',
       //'vendor/cesium/Cesium.js',
-      'vendor/cesium-unmin/Cesium.js'//,
-      //'vendor/cesium-unmin/Workers/cesiumWorkerBootstrapper.js'
+      'vendor/cesium/Cesium.js'//,
+      //'vendor/cesium/Workers/cesiumWorkerBootstrapper.js'
     ],
     css: [
       'vendor/ol3/ol.css',
@@ -108,14 +108,14 @@ module.exports = {
       'vendor/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
       'vendor/bootstrap-sortable/Contents/bootstrap-sortable.css',
       'vendor/angular-xeditable/dist/css/xeditable.css'//,
-      //'vendor/cesium-unmin/Widgets/*.css'//,
-      //'vendor/cesium-unmin/Widgets/BaseLayerPicker/*',
-      //'vendor/cesium-unmin/Widgets/CesiumInspector/*'
+      //'vendor/cesium/Widgets/*.css'//,
+      //'vendor/cesium/Widgets/BaseLayerPicker/*',
+      //'vendor/cesium/Widgets/CesiumInspector/*'
     ],
     assets: [
       'vendor/blueimp-gallery/img/*',
       'vendor/blueimp-bootstrap-image-gallery/img/*',
-      'vendor/cesium-unmin/Assets/Textures/SkyBox/*'
+      'vendor/cesium/Assets/Textures/SkyBox/*'
     ],
     fonts: [
       'vendor/bootstrap/fonts/*'
