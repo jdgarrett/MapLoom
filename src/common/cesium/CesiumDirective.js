@@ -31,8 +31,17 @@
             try {
               viewer = new Cesium.Viewer('cesiumContainer', {
                 imageryProvider: imageryProvider,
-                baseLayerPicker: !goog.isDefAndNotNull(imageryProvider),
-                scene3DOnly: endUserOptions.scene3DOnly
+                baseLayerPicker: false,
+                scene3DOnly: endUserOptions.scene3DOnly,
+                fullscreenButton: false,
+                geocoder: false,
+                homeButton: false,
+                infoBox: false,
+                sceneModePicker: false,
+                timeline: false,
+                navigationHelpButton: false,
+                navigationInstructionsInitiallyVisible: false,
+                animation: false
               });
             } catch (exception) {
               var message = formatError(exception);
