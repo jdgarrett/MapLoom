@@ -211,6 +211,10 @@
       });
     };
 
+    this.toggle3d = function() {
+      rootScope_.$broadcast('toggle-3d');
+    };
+
     this.zoomToExtent = function(extent, animate, map, scale) {
       if (!goog.isDefAndNotNull(animate)) {
         animate = true;
