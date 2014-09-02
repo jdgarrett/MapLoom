@@ -93,9 +93,7 @@ module.exports = {
       'vendor/blueimp-bootstrap-image-gallery/js/bootstrap-image-gallery.js',
       'vendor/bootstrap-sortable/Scripts/bootstrap-sortable.js',
       'vendor/angular-xeditable/dist/js/xeditable.min.js',
-      //'vendor/cesium/Cesium.js',
-      'vendor/cesium/Cesium.js'//,
-      //'vendor/cesium/Workers/cesiumWorkerBootstrapper.js'
+      'vendor/cesium/Cesium.js'
     ],
     css: [
       'vendor/ol3/ol.css',
@@ -107,18 +105,53 @@ module.exports = {
 
       'vendor/bootstrap3-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
       'vendor/bootstrap-sortable/Contents/bootstrap-sortable.css',
-      'vendor/angular-xeditable/dist/css/xeditable.css'//,
-      //'vendor/cesium/Widgets/*.css'//,
-      //'vendor/cesium/Widgets/BaseLayerPicker/*',
-      //'vendor/cesium/Widgets/CesiumInspector/*'
+      'vendor/angular-xeditable/dist/css/xeditable.css',
+      'vendor/cesium/Widgets/Animation/*.css',
+      'vendor/cesium/Widgets/BaseLayerPicker/*.css',
+      'vendor/cesium/Widgets/CesiumInspector/*.css',
+      'vendor/cesium/Widgets/FullscreenButton/*.css',
+      'vendor/cesium/Widgets/Geocoder/*.css',
+      'vendor/cesium/Widgets/Images/*.css',
+      'vendor/cesium/Widgets/InfoBox/*.css',
+      'vendor/cesium/Widgets/NavigationHelpButton/*.css',
+      'vendor/cesium/Widgets/PerformanceWatchdog/*.css',
+      'vendor/cesium/Widgets/SceneModePicker/*.css',
+      'vendor/cesium/Widgets/SelectionIndicator/*.css',
+      'vendor/cesium/Widgets/Timeline/*.css',
+      'vendor/cesium/Widgets/Viewer/*.css',
+      'vendor/cesium/Widgets/*.css'
     ],
     assets: [
       'vendor/blueimp-gallery/img/*',
-      'vendor/blueimp-bootstrap-image-gallery/img/*',
-      'vendor/cesium/Assets/Textures/SkyBox/*'
+      'vendor/blueimp-bootstrap-image-gallery/img/*'
     ],
     fonts: [
       'vendor/bootstrap/fonts/*'
+    ],
+    copy: [
+      'vendor/cesium/*',
+      'vendor/cesium/Widgets/Animation/*',
+      'vendor/cesium/Widgets/BaseLayerPicker/*',
+      'vendor/cesium/Widgets/CesiumInspector/*',
+      'vendor/cesium/Widgets/FullscreenButton/*',
+      'vendor/cesium/Widgets/Geocoder/*',
+      'vendor/cesium/Widgets/Images/*',
+      'vendor/cesium/Widgets/Images/ImageryProviders/*',
+      'vendor/cesium/Widgets/Images/NavigationHelp/*',
+      'vendor/cesium/Widgets/Images/TerrainProviders/*',
+      'vendor/cesium/Widgets/InfoBox/*',
+      'vendor/cesium/Widgets/NavigationHelpButton/*',
+      'vendor/cesium/Widgets/PerformanceWatchdog/*',
+      'vendor/cesium/Widgets/SceneModePicker/*',
+      'vendor/cesium/Widgets/SelectionIndicator/*',
+      'vendor/cesium/Widgets/Timeline/*',
+      'vendor/cesium/Widgets/Viewer/*',
+      'vendor/cesium/Widgets/*',
+      'vendor/cesium/Workers/*',
+      'vendor/cesium/Assets/*',
+      'vendor/cesium/Assets/IAU2006_XYS/*',
+      'vendor/cesium/Assets/Textures/*',
+      'vendor/cesium/Assets/Textures/SkyBox/*'
     ]
   }
 };

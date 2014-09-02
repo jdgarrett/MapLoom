@@ -147,6 +147,16 @@ module.exports = function ( grunt ) {
           }
         ]
       },
+      build_vendor_copy: {
+        files: [
+          {
+            src: [ '<%= vendor_files.copy %>' ],
+            dest: '<%= build_dir %>/',
+            cwd: '.',
+            expand: true
+          }
+        ]
+      },
       build_appjs: {
         files: [
           {
@@ -635,7 +645,7 @@ module.exports = function ( grunt ) {
    */
   grunt.registerTask( 'build', [
     'clean', 'html2js', 'gjslint', 'jshint', 'coffeelint', 'coffee', 'recess:build',
-    'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendor_fonts',
+    'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendor_fonts', 'copy:build_vendor_copy',
     'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'indexlite:build', 'karmaconfig', 'karma:continuous'
   ]);
 
@@ -644,7 +654,7 @@ module.exports = function ( grunt ) {
    */
   grunt.registerTask( 'django_maploom_build', [
     'clean', 'html2js', 'gjslint', 'jshint', 'coffeelint', 'coffee', 'recess:build',
-    'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendor_fonts',
+    'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets', 'copy:build_vendor_fonts', 'copy:build_vendor_copy',
     'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'indexlite:build', 'compile'
   ]);
 

@@ -26,6 +26,7 @@
     'loom_refresh',
     'loom_search',
     'loom_test',
-    'loom_timeline'
+    'loom_timeline',
+    'loom_cesium'
   ]);
 }());
