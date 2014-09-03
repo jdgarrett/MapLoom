@@ -178,6 +178,16 @@
         });
       }
     };
+
+    this.addLayer = function(layer) {
+      var provider = new Cesium.WebMapServiceImageryProvider({
+        url: layer.get('metadata').url + '/wms',
+        layers: layer.get('metadata').name,
+        parameters: {transparent: 'true', format: 'image/png'}
+      });
+
+      service_.viewer.scene.imageryLayers.addImageryProvider(provider);
+    };
   });
 }());
 

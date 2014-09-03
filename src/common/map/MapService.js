@@ -678,7 +678,7 @@
           ol.proj.getTransform(meta.projection, 'EPSG:4326');
         }
 
-        rootScope_.$broadcast('layer-added');
+        rootScope_.$broadcast('layer-added', layer);
       } else {
         console.log('====[Error: could not load layer: ', minimalConfig);
       }

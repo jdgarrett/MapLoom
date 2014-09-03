@@ -16,6 +16,10 @@
               }
             });
 
+            scope.$on('layer-added', function(event, layer) {
+              cesiumService.addLayer(layer);
+            });
+
             cesiumService.createViewer('cesiumContainer');
           }
         };
