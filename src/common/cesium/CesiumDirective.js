@@ -20,6 +20,10 @@
               cesiumService.addLayer(layer);
             });
 
+            scope.$on('layerRemoved', function(event, layer) {
+              cesiumService.removeLayer(layer);
+            });
+
             cesiumService.createViewer('cesiumContainer');
           }
         };

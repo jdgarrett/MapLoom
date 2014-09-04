@@ -8,6 +8,7 @@
 
     this.viewer = null;
     this.visible = true;
+    this.imageLayers = [];
 
     this.$get = function(mapService) {
       service_ = this;
@@ -186,7 +187,27 @@
         parameters: {transparent: 'true', format: 'image/png'}
       });
 
-      service_.viewer.scene.imageryLayers.addImageryProvider(provider);
+      var imageLayer = service_.viewer.scene.imageryLayers.addImageryProvider(provider);
+
+      var emptySpot = this.imageLayers.indexOf(null);
+      if (emptySpot !== -1) {
+        this.imageLayers[emptySpot] = {name: layer.get('metadata').name, layer: imageLayer};
+      } else {
+        this.imageLayers.push({name: layer.get('metadata').name, layer: imageLayer});
+      }
+    };
+
+    this.removeLayer = function(layer) {
+      var imageLayer = null;
+      for (var i = 0; i < this.imageLayers.length; ++i) {
+        if (this.imageLayers[i] !== null && this.imageLayers[i].name == layer.get('metadata').name) {
+          imageLayer = this.imageLayers[i].layer;
+          break;
+        }
+      }
+
+      service_.viewer.scene.imageryLayers.remove(imageLayer, true);
+      this.imageLayers[i] = null;
     };
   });
 }());
