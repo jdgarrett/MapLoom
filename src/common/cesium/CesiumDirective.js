@@ -24,6 +24,10 @@
               cesiumService.removeLayer(layer);
             });
 
+            scope.$on('layer-reordered', function(event, startIndex, endIndex) {
+              cesiumService.reorderLayer(startIndex, endIndex);
+            });
+
             cesiumService.createViewer('cesiumContainer');
           }
         };

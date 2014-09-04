@@ -199,15 +199,22 @@
 
     this.removeLayer = function(layer) {
       var imageLayer = null;
-      for (var i = 0; i < this.imageLayers.length; ++i) {
-        if (this.imageLayers[i] !== null && this.imageLayers[i].name == layer.get('metadata').name) {
-          imageLayer = this.imageLayers[i].layer;
+      for (var i = 0; i < service_.imageLayers.length; ++i) {
+        if (service_.imageLayers[i] !== null && service_.imageLayers[i].name == layer.get('metadata').name) {
+          imageLayer = service_.imageLayers[i].layer;
           break;
         }
       }
 
       service_.viewer.scene.imageryLayers.remove(imageLayer, true);
-      this.imageLayers[i] = null;
+      service_.imageLayers[i] = null;
+    };
+
+    this.reorderLayer = function(startIndex, endIndex) {
+      var length = service_.viewer.scene.imageryLayers.length;
+      var layer = service_.viewer.scene.imageryLayers.get(length - (startIndex + 1));
+      service_.viewer.scene.imageryLayers.remove(layer, false);
+      service_.viewer.scene.imageryLayers.add(layer, length - (endIndex + 1));
     };
   });
 }());

@@ -47,6 +47,8 @@
               var length = mapService.map.getLayers().getArray().length - 1;
               var layer = mapService.map.removeLayer(mapService.map.getLayers().getAt(length - startIndex));
               mapService.map.getLayers().insertAt(length - endIndex, layer);
+
+              $rootScope.$broadcast('layer-reordered', startIndex, endIndex);
             };
 
             scope.filterInternalLayers = function(layer) {
