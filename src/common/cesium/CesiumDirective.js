@@ -28,6 +28,10 @@
               cesiumService.reorderLayer(startIndex, endIndex);
             });
 
+            scope.$on('layer-visibility-toggled', function(event, layer) {
+              cesiumService.toggleLayer(layer);
+            });
+
             cesiumService.createViewer('cesiumContainer');
           }
         };

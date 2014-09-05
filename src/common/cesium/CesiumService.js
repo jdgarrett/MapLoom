@@ -197,24 +197,38 @@
       }
     };
 
-    this.removeLayer = function(layer) {
-      var imageLayer = null;
+    //Helper function to get the Cesium image layer that corresponds to the passed in OL layer
+    //returns an object containing the imageLayer and the index at which it occurs
+    function getImageLayer(olLayer) {
+      var layer = null;
       for (var i = 0; i < service_.imageLayers.length; ++i) {
-        if (service_.imageLayers[i] !== null && service_.imageLayers[i].name == layer.get('metadata').name) {
-          imageLayer = service_.imageLayers[i].layer;
+        if (service_.imageLayers[i] !== null && service_.imageLayers[i].name == olLayer.get('metadata').name) {
+          layer = service_.imageLayers[i].layer;
           break;
         }
       }
 
-      service_.viewer.scene.imageryLayers.remove(imageLayer, true);
-      service_.imageLayers[i] = null;
+      return {index: i, layer: layer};
+    }
+
+    this.removeLayer = function(layer) {
+      var imageLayer = getImageLayer(layer);
+
+      service_.viewer.scene.imageryLayers.remove(imageLayer.layer, true);
+      service_.imageLayers[imageLayer.index] = null;
     };
 
     this.reorderLayer = function(startIndex, endIndex) {
       var length = service_.viewer.scene.imageryLayers.length;
-      var layer = service_.viewer.scene.imageryLayers.get(length - (startIndex + 1));
-      service_.viewer.scene.imageryLayers.remove(layer, false);
-      service_.viewer.scene.imageryLayers.add(layer, length - (endIndex + 1));
+      var imageLayer = service_.viewer.scene.imageryLayers.get(length - (startIndex + 1));
+      service_.viewer.scene.imageryLayers.remove(imageLayer, false);
+      service_.viewer.scene.imageryLayers.add(imageLayer, length - (endIndex + 1));
+    };
+
+    this.toggleLayer = function(olLayer) {
+      var imageLayer = getImageLayer(olLayer);
+
+      imageLayer.layer.show = olLayer.get('visible');
     };
   });
 }());

@@ -16,6 +16,7 @@
             scope.zooming = false;
             scope.toggleVisibility = function(layer) {
               layer.setVisible(!layer.get('visible'));
+              $rootScope.$broadcast('layer-visibility-toggled', layer);
             };
 
             scope.toggleAttributeVisibility = function(attribute) {
