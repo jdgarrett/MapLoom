@@ -224,6 +224,11 @@
           url: 'http://dev.virtualearth.net',
           mapStyle: style
         });
+      } else {
+        provider = new Cesium.BingMapsImageryProvider({
+          url: 'http://dev.virtualearth.net',
+          mapStyle: Cesium.BingMapsStyle.AERIAL
+        });
       }
 
       var imageLayer = service_.viewer.scene.imageryLayers.addImageryProvider(provider);
