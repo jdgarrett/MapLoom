@@ -79,6 +79,14 @@
 
       service_.viewer.scene.globe.depthTestAgainstTerrain = true;
 
+      //remove the default bing imagery layer
+      var bingLayer = service_.viewer.scene.imageryLayers.get(0);
+      service_.viewer.scene.imageryLayers.remove(bingLayer, true);
+
+      mapService_.map.getLayers().forEach(function(layer) {
+        service_.addLayer(layer);
+      });
+
       var showLoadError = function(name, error) {
         var title = 'An error occurred while loading the file: ' + name;
         var message = 'An error occurred while loading the file: ';
@@ -181,11 +189,42 @@
     };
 
     this.addLayer = function(layer) {
-      var provider = new Cesium.WebMapServiceImageryProvider({
-        url: layer.get('metadata').url + '/wms',
-        layers: layer.get('metadata').name,
-        parameters: {transparent: 'true', format: 'image/png'}
-      });
+      //need to add separate logic for non-WMS layers such as OSM
+      var source = layer.getSource();
+      console.log('layer source', source);
+      var provider;
+      if (source instanceof ol.source.OSM) {
+        provider = new Cesium.OpenStreetMapImageryProvider();
+      } else if (source instanceof ol.source.TileWMS) {
+        provider = new Cesium.WebMapServiceImageryProvider({
+          url: layer.get('metadata').url + '/wms',
+          layers: layer.get('metadata').name,
+          parameters: {transparent: 'true', format: 'image/png'}
+        });
+      } else if (source instanceof ol.source.BingMaps) {
+        var style;
+        switch (layer.get('metadata').name) {
+          case 'Aerial':
+            style = Cesium.BingMapsStyle.AERIAL;
+            break;
+          case 'AerialWithLabels':
+            style = Cesium.BingMapsStyle.AERIAL_WITH_LABELS;
+            break;
+          case 'Road':
+            style = Cesium.BingMapsStyle.ROAD;
+            break;
+          case 'CollinsBart':
+            style = Cesium.BingMapsStyle.COLLINS_BART;
+            break;
+          case 'Survey':
+            style = Cesium.BingMapsStyle.ORDNANCE_SURVEY;
+            break;
+        }
+        provider = new Cesium.BingMapsImageryProvider({
+          url: 'http://dev.virtualearth.net',
+          mapStyle: style
+        });
+      }
 
       var imageLayer = service_.viewer.scene.imageryLayers.addImageryProvider(provider);
 
