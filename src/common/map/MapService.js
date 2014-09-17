@@ -594,6 +594,7 @@
             };
             geogitService_.isGeoGit(layer, server, fullConfig).then(function() {
               testReadOnly();
+              rootScope_.$broadcast('layer-ready', layer);
             }, function() {
               testReadOnly();
             });

@@ -71,13 +71,13 @@
         service_.viewer.extend(Cesium.viewerCesiumInspectorMixin);
       }
 
-      var vrTheWorldProvider = new Cesium.VRTheWorldTerrainProvider({
-        url: '//www.vr-theworld.com/vr-theworld/tiles1.0.0/73/',
-        credit: 'Terrain data courtesy VT MÄK'
-      });
-      service_.viewer.scene.terrainProvider = vrTheWorldProvider;
+      //var vrTheWorldProvider = new Cesium.VRTheWorldTerrainProvider({
+      //  url: '//www.vr-theworld.com/vr-theworld/tiles1.0.0/73/',
+      //  credit: 'Terrain data courtesy VT MÄK'
+      //});
+      //service_.viewer.scene.terrainProvider = vrTheWorldProvider;
 
-      service_.viewer.scene.globe.depthTestAgainstTerrain = true;
+      //service_.viewer.scene.globe.depthTestAgainstTerrain = true;
 
       //remove the default bing imagery layer
       var bingLayer = service_.viewer.scene.imageryLayers.get(0);
@@ -188,6 +188,7 @@
       }
     };
 
+    this.shellStr = '';
     this.addLayer = function(layer) {
       //need to add separate logic for non-WMS layers such as OSM
       var source = layer.getSource();
@@ -196,10 +197,38 @@
       if (source instanceof ol.source.OSM) {
         provider = new Cesium.OpenStreetMapImageryProvider();
       } else if (source instanceof ol.source.TileWMS) {
+        var wfsCallback = null;
+        // if it's a polygon layer with heigh information, add a WFS layer
+        var schema = layer.get('metadata').schema;
+        if (goog.isDefAndNotNull(schema)) {
+          console.log('has SCHEMA');
+          var geometryType = null;
+          var geometryName = null;
+          var hasHeight = false;
+          var hasLevels = false;
+          goog.object.forEach(schema, function(v, k) {
+            if (v._type.search('gml:') > -1) {
+              geometryType = v._type;
+              geometryName = k;
+            }
+            if (k === 'height') {
+              hasHeight = true;
+            } else if (k === 'levels') {
+              hasLevels = true;
+            }
+          });
+          if (goog.isDefAndNotNull(geometryType) && (hasHeight || hasLevels) &&
+              (geometryType === 'gml:Polygon' || geometryType === 'gml:MultiPolygon' ||
+               geometryType === 'gml:SurfacePropertyType' || geometryType === 'gml:MultiSurfacePropertyType')) {
+            wfsCallback = new WFSHandler(layer, service_.viewer, geometryName, hasHeight, hasLevels, 100);
+          }
+        }
+
         provider = new Cesium.WebMapServiceImageryProvider({
           url: layer.get('metadata').url + '/wms',
           layers: layer.get('metadata').name,
-          parameters: {transparent: 'true', format: 'image/png'}
+          parameters: {transparent: 'true', format: 'image/png', tiled: 'true'},
+          tileListener: wfsCallback
         });
       } else if (source instanceof ol.source.BingMaps) {
         var style;

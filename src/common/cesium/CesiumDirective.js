@@ -16,7 +16,7 @@
               }
             });
 
-            scope.$on('layer-added', function(event, layer) {
+            scope.$on('layer-ready', function(event, layer) {
               cesiumService.addLayer(layer);
             });
 

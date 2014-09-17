@@ -148,7 +148,7 @@ module.exports = {
       'vendor/cesium/Widgets/Viewer/*',
       'vendor/cesium/Widgets/*',
       'vendor/cesium/Workers/*',
-      'vendor/cesium/Assets/*',
+      'vendor/cesium/Assets/**',
       'vendor/cesium/Assets/IAU2006_XYS/*',
       'vendor/cesium/Assets/Textures/*',
       'vendor/cesium/Assets/Textures/SkyBox/*'
