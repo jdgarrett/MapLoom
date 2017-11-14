@@ -298,6 +298,7 @@
 
       http.get(url).then(function(response) {
         if (response.data == null || response.data.indexOf('ows:ExceptionReport') >= 0) {
+          layer.get('metadata').wmsOnly = true;
           deferredResponse.reject(response);
           return;
         }
